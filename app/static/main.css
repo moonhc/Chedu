@@ -1,0 +1,47 @@
+body {
+  padding-top: 70px;
+}
+
+.logo {
+  height: 100%;
+  float: left;
+}
+
+.logo-text {
+  height: 70%;
+  float: left;
+}
+
+.navbar-brand {
+  padding: 10;
+}
+
+@media (min-width: 768px) {
+  .chedu-screen {
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: gray;
+    height: 500px;
+  }
+
+  .chedu-chat {
+    border: 1px solid gray;
+    border-radius: 5px;
+    height: 500px;
+  }
+}
+
+@media (max-width: 767px) {
+  .chedu-screen {
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: gray;
+    height: 500px;
+  }
+
+  .chedu-chat {
+    border: 1px solid gray;
+    border-radius: 5px;
+    height: 200px;
+  }
+}

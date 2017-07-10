@@ -6,3 +6,7 @@ def index():
     tmpDict = {}
     tmpDict['userName'] = 'MoonHC'
     return render_template('index.html', **tmpDict)
+
+@app.route('/chat')
+def chat():
+    return render_template('chedu.html')
