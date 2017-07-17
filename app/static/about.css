@@ -1,0 +1,44 @@
+body {
+  padding-top: 70px;
+}
+
+.logo {
+  height: 100%;
+  float: left;
+}
+
+.logo-text {
+  height: 70%;
+  float: left;
+}
+
+.navbar-brand {
+  padding: 10;
+}
+
+.biglogo {
+	/*height : 500%;*/
+	/*float :mid;*/
+	margin-left:0%;
+	text-align:center;
+}
+/*
+.biglogo-text{
+	height :200%;
+	margin-left : -60%;
+	text-align:center;
+	margin-top: 150;
+}*/
+.Teams{
+	
+	margin-left:10%;
+	left:5%;
+	color: black;
+}/*
+.purpose{
+	
+	margin-left:0;
+	margin-top:100;
+}
+
+*/
