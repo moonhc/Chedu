@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request, url_for, redirect
 from flask_socketio import send
 from app import app, socketio
 
@@ -11,14 +11,14 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        return 'POST'
+        return redirect(url_for('chat', passcode=request.form['passcode'], uname=request.form['email']))
     else:
-        return 'GET'
+        return 'Not valid access'
 
 @app.route('/chat/<passcode>')
 @app.route('/chat/<passcode>/<uname>')
 def chat(passcode, uname=None):
-    return render_template('chedu.html', passcode=passcode)
+    return render_template('chedu.html', passcode=passcode, uname=uname)
 
 @app.route('/about')
 def show_about():
