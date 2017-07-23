@@ -13,12 +13,17 @@ def login():
     if request.method == 'POST':
         return redirect(url_for('chat', passcode=request.form['passcode'], uname=request.form['email']))
     else:
-        return 'Not valid access'
+        return error_handling()
+
+@app.route('/files', methods=['GET', 'POST'])
 
 @app.route('/chat/<passcode>')
-@app.route('/chat/<passcode>/<uname>')
 def chat(passcode, uname=None):
-    return render_template('chedu.html', passcode=passcode, uname=uname)
+    if passcode == None :
+        return error_handling()
+    return render_template('chedu.html', passcode=passcode, uname=uname,
+                                file_url="www.cs.uu.nl/docs/vakken/an/an-stablemarriage.ppt", 
+                                filename="TEST", filedate="2017-00-00")
 
 @app.route('/about')
 def show_about():
@@ -31,3 +36,6 @@ def message_handler(msg):
     #     global guest_cnt
     #     guest_cnt += 1
     send(msg, broadcast=True)
+
+def error_handling():
+    return "Not vaild access!"
