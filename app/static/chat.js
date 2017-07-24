@@ -10,7 +10,10 @@ $(document).ready(function() {
   })
 
   $('.msg-send').on('click', function() {
-    socket.send($('.msg-input').val())
-    $('.msg-input').val('')
+    var msg = $('.msg-input').val()
+    if (msg != '') {
+      socket.send(msg)
+      $('.msg-input').val('')
+    }
   })
 })
