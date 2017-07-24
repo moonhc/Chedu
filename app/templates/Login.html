@@ -34,7 +34,7 @@
 							<input type="text" class="form-control" id="email" name="email" value="" required="" title="Please enter you UCSC email" placeholder="example@ucsc.edu">
 							<span class="help-block"></span>
 						</div>
-						<button type="submit" class="btn btn-success btn-block">Log in</button>
+						<button type="submit" class="btn btn-success btn-block log-in">Log in</button>
 					</form>
 				</div>
 			</div>
@@ -42,13 +42,13 @@
 				<div class="well">
 					<p class="lead">File Upload</p>
 					<p class="lead">Drag and Drop file here</p>
-					<form method="post" action="#" id="#">
+					<form method="post" action="/files" enctype="multipart/form-data">
 						<div class="form-group files">
 							<label>Upload Your File </label>
 							<input type="file" class="form-control" name= "upload" multiple="">
 						</div>
+						<button type="submit" class="btn btn-info btn-block upload-file">Start Lecture</button>
 					</form>
-					<p><a href="/button/" class="btn btn-info btn-block">Start Lecture</a></p>
 				</div>
 			</div>
 		</div>
