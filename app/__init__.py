@@ -11,6 +11,10 @@ SECRET_KEY = "Yellow Slug"
 USERNAME = "Chedu"
 PASSWORD = "slug123"
 
+# Configuration for files
+UPLOAD_FOLDER = '/home/chedu/Chedu/app/tmp_files'
+ALLOWED_EXTENSIONS = set(['pdf', 'ppt', 'txt'])
+
 # Create application
 app = Flask(__name__)
 app.config.from_object(__name__)

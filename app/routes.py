@@ -72,6 +72,8 @@ def login():
         return error_handling()
 
 @app.route('/files', methods=['GET', 'POST'])
+def upload():
+    return 'upload'
 
 @app.route('/chat/<passcode>')
 def chat(passcode, uname=None):
