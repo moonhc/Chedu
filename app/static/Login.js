@@ -1,25 +1,25 @@
 $(document).ready(function() {
 		console.log($("#file-upload").value)
-		
-		//help use the validate function work with the other input buttons. 
+
+		//help use the validate function work with the other input buttons.
 		validate();
 		$('#passcode, #email, #file-upload').change(validate);
-		
-		
+
+
 	}
 
 )
 
-//This funtion validates the buttons where the buttons are disabled until there are text or file within them.	
+//This funtion validates the buttons where the buttons are disabled until there are text or file within them.
 function validate(){
-    if ($('#passcode').val().length > 0 && $('#email').val().length > 0 || document.getElementById("file-upload").files.length >0) 
+    if ($('#passcode').val().length > 0 && $('#email').val().length > 0 || document.getElementById("file-upload").files.length >0)
 	{
-        $("button[type=submit]").prop("disabled", false);
+        $(".log-in").prop("disabled", false);
     }
-	
-    else 
+
+    else
 	{
-        $("button[type=submit]").prop("disabled", true);
+        $(".log-in").prop("disabled", true);
     }
 }
 
@@ -35,4 +35,3 @@ function sendFile()
 {
     var inputFile = document.getElementById('file-upload').value
 }
-
