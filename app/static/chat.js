@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  var socket = io.connect('http://54.193.3.64')
+  var socket = io.connect('http://52.53.49.26')
 
   socket.on('connect', function() {
     socket.send('new user')
