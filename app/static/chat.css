@@ -100,7 +100,7 @@
   /* IE6-9 */
 }
 .chat-window .app-content .messages-wrapper {
-  height: 90%;
+  height: 88%;
   overflow-y: auto;
   margin-right: 5px;
   position: relative;
