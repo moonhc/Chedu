@@ -26,14 +26,14 @@
       </div>
     </nav>
     <div class="container">
-      <h3>{{filename}} <a href="/uploads/{{filename}}"><span class="glyphicon glyphicon-download-alt download-icon" aria-hidden="true"></span></a></h3>
+      <h3>{{filename}} <a href="/uploads/{{passcode+filename}}"><span class="glyphicon glyphicon-download-alt download-icon" aria-hidden="true"></span></a></h3>
       <h5>{{filedate}}</h5>
     </div>
     <div class="container">
       <div class="chedu-screen col-sm-8">
         <!--ppt implementation-->
         <!-- <iframe class = "ppt-frame" src="https://docs.google.com/viewer?url={{file_url}}" frameborder="0" ></iframe>-->
-        <iframe class = "ppt-frame" src="https://view.officeapps.live.com/op/embed.aspx?src=http%3A%2F%2Fucscchedu.click%2Fuploads%2F{{filename}}" frameborder="0" ></iframe>
+        <iframe class = "ppt-frame" src="https://view.officeapps.live.com/op/embed.aspx?src=http%3A%2F%2Fucscchedu.click%2Fuploads%2F{{passcode+filename}}" frameborder="0" ></iframe>
       </div>
       <div class="chedu-chat col-sm-4">
         <div class="msg-log-wrap">
