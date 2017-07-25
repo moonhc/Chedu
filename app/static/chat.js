@@ -10,16 +10,26 @@ $(document).ready(function() {
   socket.on('message', function(data) {
     switch (data.type) {
       case 'new':
-        $('.msg-log').append('<li><b>'+data.uname+'</b> has entered.</li>')
+        if (data.uname != 'Owner') {
+          $('.messages-wrapper ul').append(
+            '<li class="message-item-new" align="center"> \
+              <span class="new-user-name">'+data.uname+'@ucsc.edu</span> \
+              <span class="new-user-sentence"> has entered.</span> \
+             </li>')
+         }
         break
       case 'msg':
-        $('.msg-log').append('<li>' + data.msg +'</li>')
+        $('.messages-wrapper ul').append(
+          '<li class="message-item"> \
+            <span class="nickname">'+ data.uname + '</span> \
+            <span class="timestamp">' + data.time + '</span> \
+            <p class="message">' + data.msg + '</p> \
+           </li>')
         break
     }
-
   })
 
-  $('.msg-send').on('click', function() {
+  $('.emoji-icon').on('click', function() {
     var msg = $('.msg-input').val()
     if (msg != '') {
       socket.send({msg: msg, room: passcode, uname: uname, type: 'msg'})

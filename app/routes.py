@@ -96,7 +96,9 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        return redirect(url_for('chat', passcode=request.form['passcode'], uname=request.form['email']))
+        email = request.form['email']
+        uname = email.split('@')[0] if '@' in email else email
+        return redirect(url_for('chat', passcode=request.form['passcode'], uname=uname))
     else:
         return error_handling()
 
@@ -117,8 +119,7 @@ def upload_file():
                 timezone = pytz.timezone('US/Pacific')
                 current_time = datetime.now(timezone).strftime('20%y-%m-%d')
                 insert_db('files', [passcode, filename, current_time])
-                return redirect(url_for('chat',
-                                        passcode=passcode, uname='Owner'))
+                return redirect(url_for('chat', passcode=passcode, uname='Owner'))
         return redirect(url_for('index'))
     except:
         return error_handling()
@@ -136,8 +137,9 @@ def chat(passcode, uname):
         return error_handling()
 
     file_info = query_db('select * from files where passcode = ?', [passcode], one=True)
-    return render_template('chedu.html', passcode=passcode, uname=uname, message=None,
-                                filename=file_info['file_name'], filedate=file_info['open_date'])
+    filename = file_info['file_name'].split('.')[0]
+    filename = filename[0].upper() + filename[1:]
+    return render_template('chedu.html', passcode=passcode, uname=uname, filename=filename, file_url=file_info['file_name'])
 
 # Render decription page.
 @app.route('/about')
@@ -156,6 +158,9 @@ def close_connection(exception):
 @socketio.on('message')
 def message_handler(data):
     room = data.pop('room')
+    timezone = pytz.timezone('US/Pacific')
+    current_time = datetime.now(timezone).strftime('%H:%M')
+    data['time'] = current_time
     send(data, room=room)
 
 @socketio.on('join')
