@@ -161,7 +161,7 @@ def message_handler(data):
 @socketio.on('join')
 def on_join(data):
     join_room(data['room'])
-    send({'msg':'Fuckyou'}, room=data['room'])
+    send({'uname': data['uname'], 'type': 'new'}, room=data['room'])
 
 # Default error handling function
 def error_handling():
