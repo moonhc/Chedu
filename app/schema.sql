@@ -3,7 +3,6 @@ drop table if exists chat_log;
 
 create table files (
   passcode integer primary key,
-  url text not null,
   file_name text not null,
   opener_email text not null,
   open_date text not null
