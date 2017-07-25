@@ -137,9 +137,11 @@ def chat(passcode, uname):
         return error_handling()
 
     file_info = query_db('select * from files where passcode = ?', [passcode], one=True)
-    filename = file_info['file_name'].split('.')[0]
+    filename = '.'.join(file_info['file_name'].split('.')[0:-1])
+    viewer = app.config['VIEWER_PDF'] if 'pdf' in file_info['file_name'].split('.')[-1] else app.config['VIEWER_DEFAULT']
     filename = filename[0].upper() + filename[1:]
-    return render_template('chedu.html', passcode=passcode, uname=uname, filename=filename, file_url=file_info['file_name'])
+    return render_template('chedu.html', passcode=passcode, uname=uname,
+                            filename=filename, file_url=file_info['file_name'], viewer=viewer)
 
 # Render decription page.
 @app.route('/about')

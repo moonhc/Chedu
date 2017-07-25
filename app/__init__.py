@@ -13,7 +13,11 @@ PASSWORD = "slug123"
 
 # Configuration for files
 UPLOAD_FOLDER = '/home/chedu/Chedu/app/tmp_files/'
-ALLOWED_EXTENSIONS = set(['ppt', 'pptx', 'xlxx', 'xlx', 'doc', 'docx'])
+ALLOWED_EXTENSIONS = set(['ppt', 'pptx', 'xlxx', 'xlx', 'doc', 'docx', 'pdf'])
+
+# Configuration for viewer
+VIEWER_DEFAULT = 'https://view.officeapps.live.com/op/embed.aspx?src=http://ucscchedu.click/uploads/'
+VIEWER_PDF = 'http://ucscchedu.click/uploads/'
 
 # Create application
 app = Flask(__name__)
