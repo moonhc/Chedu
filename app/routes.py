@@ -1,6 +1,8 @@
 import sqlite3
-from flask import render_template, request, url_for, redirect, g, jsonify
+import os
+from flask import render_template, request, url_for, redirect, g, jsonify, send_from_directory
 from flask_socketio import send
+from werkzeug import secure_filename
 from app import app, socketio
 
 #############################
@@ -58,12 +60,14 @@ def close_connection(exception):
 #           Routing         #
 #############################
 
+# Render login page.
 @app.route('/')
 def index():
     #tmpDict = {}
     #tmpDict['userName'] = 'MoonHC'
     return render_template('Login.html')#, **tmpDict)
 
+# Validate PASSCODE and email. Then redirect to ppt view page.
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -71,22 +75,46 @@ def login():
     else:
         return error_handling()
 
-@app.route('/files', methods=['GET', 'POST'])
-def upload():
-    return 'upload'
+# Check the file type which was set previously in configuration (app.config).
+def allowed_file(filename):
+    return ('.' in filename) and (filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS'])
 
+# HTTP request url for uploding a file.
+@app.route('/files', methods=['GET', 'POST'])
+def upload_file():
+    try:
+        if request.method == 'POST':
+            file = request.files['file']
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                return redirect(url_for('chat',
+                                        passcode='tmp', uname='Owner'))
+        return redirect(url_for('index'))
+    except:
+        return 'Error'
+
+# Give a access for uploaded files
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'],
+                               filename)
+
+# Render chat page with correct password.
 @app.route('/chat/<passcode>')
 def chat(passcode, uname=None):
     if passcode == None :
         return error_handling()
     return render_template('chedu.html', passcode=passcode, uname=uname, message=None,
-                                file_url="www.cs.uu.nl/docs/vakken/an/an-stablemarriage.ppt",
                                 filename="TEST", filedate="2017-00-00")
 
+# Render decription page.
 @app.route('/about')
 def show_about():
     return render_template('about.html')
 
+# Socket for message. After recieve message from 'msg'
+# and publish to all the users who see the same ppt.
 # guest_cnt = 0
 @socketio.on('message')
 def message_handler(msg):
@@ -95,5 +123,6 @@ def message_handler(msg):
     #     guest_cnt += 1
     send(msg, broadcast=True)
 
+# Default error handling function
 def error_handling():
     return "Not vaild access!"
