@@ -35,7 +35,7 @@
     <div class="container">
       <div class="chedu-screen col-sm-8">
         <!--ppt implementation-->
-        <iframe class = "ppt-frame" src="https://view.officeapps.live.com/op/embed.aspx?src=http%3A%2F%2Fucscchedu.click%2Fuploads%2F{{passcode+file_url}}" frameborder="0" ></iframe>
+        <iframe class="ppt-frame" src="{{viewer+passcode+file_url}}" frameborder="0" ></iframe>
       </div>
       <div class="chedu-chat col-sm-4">
         <div class="chat-window" ng-app="chat-app">
@@ -43,22 +43,15 @@
             <div class="window-controls"></div>
             <span>Chat</span>
           </div>
-          <div class="app-content" ng-controller="ChatController" chat-app-container>
+          <div class="app-content">
             <div class="messages-container">
               <div class="messages-wrapper">
                 <ul>
-                  <!-- <li class="message-item">
-                    <span class="nickname">hmoon306@ucsc.edu</span>
-                    <span class="timestamp">2017-07-25 04:11:27</span>
-                    <p class="message">
-                      Hi! We're Chedu. ddddddddddddddddddddddddddddddddddddddddddddddddddd
-                    </p>
-                  </li> -->
                 </ul>
               </div>
             </div>
             <div class="user-input-wrapper">
-              <textarea user-input-field placeholder="Your message ..." class="msg-input"></textarea>
+              <textarea placeholder="Your message ..." class="msg-input"></textarea>
               <i class="fa fa-paper-plane emoji-icon"></i>
             </div>
           </div>
