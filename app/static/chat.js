@@ -28,12 +28,26 @@ $(document).ready(function() {
          }
         break
       case 'msg':
-        $('.messages-wrapper ul').append(
-          '<li class="message-item"> \
-            <span class="nickname">'+ data.uname + '</span> \
-            <span class="timestamp">' + data.time + '</span> \
-            <p class="message">' + data.msg + '</p> \
-           </li>')
+        if ($('.message-item:last .nickname').text() == data.uname) {
+          $('.message-item:last').append(
+            '<p class=message>' + data.msg + '</p>')
+        }
+        else if (data.uname == uname) {
+          $('.messages-wrapper ul').append(
+            '<li class="message-item reverse"> \
+              <span class="nickname">'+ data.uname + '</span> \
+              <span class="timestamp">' + data.time + '</span> \
+              <p class="message">' + data.msg + '</p> \
+             </li>')
+        }
+        else {
+          $('.messages-wrapper ul').append(
+            '<li class="message-item"> \
+              <span class="nickname">'+ data.uname + '</span> \
+              <span class="timestamp">' + data.time + '</span> \
+              <p class="message">' + data.msg + '</p> \
+             </li>')
+         }
         break
     }
     $(".messages-wrapper").stop().animate(
