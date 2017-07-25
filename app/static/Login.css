@@ -28,6 +28,7 @@
     background-size: 100%;
     background-repeat: no-repeat;
 }
+/* styling drag and drop part */
 .color input{ background-color:#f1f1f1;}
 .files:before {
     position: absolute;
@@ -44,6 +45,7 @@
     text-align: center;
 }
 
+/* styling button */
 button {
     background-color: #FF00FF;
     color: white;
