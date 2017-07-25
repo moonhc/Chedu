@@ -1,7 +1,7 @@
 import sqlite3, os, random, string, pytz
 from datetime import datetime
 from flask import render_template, request, url_for, redirect, g, jsonify, send_from_directory
-from flask_socketio import send
+from flask_socketio import send, join_room, emit
 from werkzeug import secure_filename
 from app import app, socketio
 
@@ -115,7 +115,7 @@ def upload_file():
                 passcode = make_passcode()
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], passcode+filename))
                 timezone = pytz.timezone('US/Pacific')
-                current_time = datetime.now(timezone).strftime('%y-%m-%d')
+                current_time = datetime.now(timezone).strftime('20%y-%m-%d')
                 insert_db('files', [passcode, filename, current_time])
                 return redirect(url_for('chat',
                                         passcode=passcode, uname='Owner'))
@@ -130,8 +130,8 @@ def uploaded_file(filename):
                                filename)
 
 # Render chat page with correct password.
-@app.route('/chat/<passcode>')
-def chat(passcode, uname=None):
+@app.route('/chat/<passcode>/<uname>')
+def chat(passcode, uname):
     if validate_passcode(passcode):
         return error_handling()
 
@@ -153,13 +153,15 @@ def close_connection(exception):
 
 # Socket for message. After recieve message from 'msg'
 # and publish to all the users who see the same ppt.
-# guest_cnt = 0
-@socketio.on('message', namespace='/test')
-def message_handler(msg):
-    # if msg == 'new user':
-    #     global guest_cnt
-    #     guest_cnt += 1
-    send(msg, broadcast=True)
+@socketio.on('message')
+def message_handler(data):
+    room = data.pop('room')
+    send(data, room=room)
+
+@socketio.on('join')
+def on_join(data):
+    join_room(data['room'])
+    send({'msg':'Fuckyou'}, room=data['room'])
 
 # Default error handling function
 def error_handling():
